@@ -32,6 +32,10 @@ public class CategoryController : Controller
    [HttpPost]//This would be a post functionality on this Create Action
    [ValidateAntiForgeryToken]
    public IActionResult Create(Category obj){
+    
+      if(obj.DisplayOrder.ToString()==obj.Name){
+        ModelState.AddModelError("name","The DisplayOrder cannot exactly match the Name.");
+      }
 
     if(ModelState.IsValid){
      _db.Categories.Add(obj);// This line doesnt necessarily save the changes to the database;
