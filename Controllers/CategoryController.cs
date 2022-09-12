@@ -21,4 +21,26 @@ public class CategoryController : Controller
 
    }
 
+   //GET
+   public IActionResult Create(){
+
+    return View();
+
+   }
+
+   //POST
+   [HttpPost]//This would be a post functionality on this Create Action
+   [ValidateAntiForgeryToken]
+   public IActionResult Create(Category obj){
+
+    if(ModelState.IsValid){
+     _db.Categories.Add(obj);// This line doesnt necessarily save the changes to the database;
+     _db.SaveChanges(); //This is what saves the changes to the database
+    return RedirectToAction("Index");
+    }
+
+    return View(obj);
+
+   }
+   
 }   
